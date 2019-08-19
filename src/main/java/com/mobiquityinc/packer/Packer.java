@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -66,7 +67,7 @@ public class Packer {
         }
 
         Matcher groupMatcher = Pattern.compile(groupRegex).matcher(line);
-        List<Item> items = new LinkedList<>();
+        List<Item> items = new ArrayList<>();
         while (groupMatcher.find()) {
             items.add(new Item(
                     Integer.valueOf(groupMatcher.group(1)),
