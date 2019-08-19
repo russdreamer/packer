@@ -39,15 +39,15 @@ class RecursivePacker {
             }
         }
 
-        return getCurrentPackage(bestChildPack, curItWeight, curItCost, curItem);
+        return getItemsPack(bestChildPack, curItWeight, curItCost, curItem);
     }
 
-    private static Package getCurrentPackage(Package bestChildPack, float curItWeight, int curItCost, Item curItem) {
+    private static Package getItemsPack(Package bestChildPack, float curItemWeight, int curItemCost, Item curItem) {
         List<Item> items;
 
         if (bestChildPack != null) {
-            curItWeight += bestChildPack.weight;
-            curItCost += bestChildPack.cost;
+            curItemWeight += bestChildPack.weight;
+            curItemCost += bestChildPack.cost;
             items = bestChildPack.items;
             if (curItem != null) {
                 items.add(0, curItem);
@@ -60,7 +60,7 @@ class RecursivePacker {
             }
             else items = Collections.emptyList();
         }
-        return new Package(curItWeight, curItCost, items);
+        return new Package(curItemWeight, curItemCost, items);
     }
 
     private static class Package {
