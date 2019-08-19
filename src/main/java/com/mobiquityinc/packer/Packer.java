@@ -109,6 +109,7 @@ public class Packer {
      * @return comma separated packaged items' id. Or hyphen sign if no item fits
      */
     private static String getSuitableItems(Case caseInst) {
+        /* remove all items that larger than weight limit */
         caseInst.getItems().removeIf(item -> item.getWeight() > caseInst.getWeightLimit());
 
         List<Item> items;
@@ -116,6 +117,9 @@ public class Packer {
             return "-";
         }
 
-        return items.stream().map(Item::getIndex).map(String::valueOf).collect(Collectors.joining(","));
+        return items.stream()
+                .map(Item::getIndex)
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
     }
 }
