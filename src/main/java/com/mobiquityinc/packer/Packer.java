@@ -78,6 +78,13 @@ public class Packer {
     }
 
     private static String getSuitableItems(Case caseInst) {
-        return "-";
+        caseInst.getItems().removeIf(item -> item.getWeight() > caseInst.getWeightLimit());
+
+        List<Item> items;
+        if (caseInst.getItems().isEmpty() || (items = RecursivePacker.getPackedItems(caseInst)) == null) {
+            return "-";
+        }
+
+        return items.stream().map(Item::getIndex).map(String::valueOf).collect(Collectors.joining(","));
     }
 }
