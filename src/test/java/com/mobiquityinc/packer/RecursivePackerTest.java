@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class RecursivePackerTest {
@@ -58,8 +59,7 @@ public class RecursivePackerTest {
         String res4 = RecursivePacker.getPackedItems(c4).stream().map(Item::getIndex).map(String::valueOf).collect(Collectors.joining(","));
         Assertions.assertEquals("8,9", res4);
 
-        Item[] items5 = {};
-        Case c5 = new Case(56, Arrays.asList(items5));
+        Case c5 = new Case(56, Collections.emptyList());
         String res5 = RecursivePacker.getPackedItems(c5).stream().map(Item::getIndex).map(String::valueOf).collect(Collectors.joining(","));
         Assertions.assertEquals("", res5);
     }
