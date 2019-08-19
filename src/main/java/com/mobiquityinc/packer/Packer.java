@@ -32,9 +32,28 @@ public class Packer {
         for (String line : lines) {
             cases.add(parseCase(line));
         }
+
+        if (! isCasesValid(cases)) {
+            throw new APIException("The file's line contains incorrect parameters");
+        }
+
         return cases.stream()
                 .map(Packer::getSuitableItems)
                 .collect(Collectors.joining(System.lineSeparator()));
+    }
+
+    private static boolean isCasesValid(List<Case> cases) {
+        for (Case caseInst: cases) {
+            if (caseInst.getWeightLimit() > 100 || caseInst.getItems().size() > 15) {
+                return false;
+            }
+            for (Item item: caseInst.getItems()) {
+                if (item.getWeight() > 100) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -54,7 +73,7 @@ public class Packer {
             return reader.lines().collect(Collectors.toList());
 
         } catch (FileNotFoundException e) {
-            throw new APIException("Invalid file path");
+            throw new APIException("Invalid file path", e);
         }
     }
 
