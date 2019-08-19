@@ -26,7 +26,7 @@ public class RecursivePackerTest {
         Item[] items2 = {new Item(1, 15.3f, 34)};
         Case c2 = new Case(8, Arrays.asList(items2));
         String res2 = RecursivePacker.getPackedItems(c2).stream().map(Item::getIndex).map(String::valueOf).collect(Collectors.joining(","));
-        Assertions.assertEquals("-", res2);
+        Assertions.assertEquals("", res2);
 
         Item[] items3 = {
                 new Item(1, 85.31f, 29),
@@ -57,5 +57,10 @@ public class RecursivePackerTest {
         Case c4 = new Case(56, Arrays.asList(items4));
         String res4 = RecursivePacker.getPackedItems(c4).stream().map(Item::getIndex).map(String::valueOf).collect(Collectors.joining(","));
         Assertions.assertEquals("8,9", res4);
+
+        Item[] items5 = {};
+        Case c5 = new Case(56, Arrays.asList(items5));
+        String res5 = RecursivePacker.getPackedItems(c5).stream().map(Item::getIndex).map(String::valueOf).collect(Collectors.joining(","));
+        Assertions.assertEquals("", res5);
     }
 }
