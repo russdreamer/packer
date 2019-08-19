@@ -2,7 +2,6 @@ package com.mobiquityinc.packer;
 
 import com.mobiquityinc.exception.APIException;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,8 +12,7 @@ public class Packer {
     }
 
     public static String pack(String filePath) throws APIException {
-        File file = new File(filePath);
-        List<String> lines = readLines(file);
+        List<String> lines = readLines(filePath);
 
         List<Case> cases = new LinkedList<>();
         for (String line : lines) {
@@ -23,11 +21,11 @@ public class Packer {
         return cases.stream().map(Packer::getSuitableItems).collect(Collectors.joining(System.lineSeparator()));
     }
 
-    private static List<String> readLines(File file) {
+    private static List<String> readLines(String filePath) {
         return null;
     }
 
-    public static Case parseCase(String line) {
+    private static Case parseCase(String line) {
         return null;
     }
 
