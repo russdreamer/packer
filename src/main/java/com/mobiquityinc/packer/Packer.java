@@ -20,16 +20,29 @@ public class Packer {
     private Packer() {
     }
 
+    /**
+     * Pack income items based on maximal package weight and valuable
+     * @param filePath text file with item and package weight
+     * @return comma separated packaged items's id. Each case outputs as a separate line
+     * @throws APIException if incorrect parameters are being passed
+     */
     public static String pack(String filePath) throws APIException {
         List<String> lines = readLines(filePath);
-
         List<Case> cases = new LinkedList<>();
         for (String line : lines) {
             cases.add(parseCase(line));
         }
-        return cases.stream().map(Packer::getSuitableItems).collect(Collectors.joining(System.lineSeparator()));
+        return cases.stream()
+                .map(Packer::getSuitableItems)
+                .collect(Collectors.joining(System.lineSeparator()));
     }
 
+    /**
+     * parse text file into lines
+     * @param filePath text file to parse
+     * @return text lines
+     * @throws APIException if incorrect parameters are being passed
+     */
     private static List<String> readLines(String filePath) throws APIException {
         if (filePath == null) {
             throw new APIException("Invalid file path");
@@ -45,6 +58,12 @@ public class Packer {
         }
     }
 
+    /**
+     * parse text line case
+     * @param line text line with case attributes
+     * @return parsed case as object
+     * @throws APIException if incorrect parameters are being passed
+     */
     private static Case parseCase(String line) throws APIException {
         Pattern pattern = Pattern.compile("^\\d+\\s*:(\\s*\\([^()]*\\)\\s*)*$");
         if (!pattern.matcher(line).matches()) {
@@ -57,6 +76,12 @@ public class Packer {
         return new Case(weightLimit, items);
     }
 
+    /**
+     * parse text line of items list
+     * @param line set of items with attributes
+     * @return parsed items as list of objects
+     * @throws APIException if incorrect parameters are being passed
+     */
     private static List<Item> parseItems(String line) throws APIException {
         String groupRegex = "(?:\\((\\d+),(\\d+(?:[.]\\d+)*),€(\\d+)\\))";
         String validateRegex = "(\\s" + groupRegex + "\\s*)*";
@@ -78,6 +103,11 @@ public class Packer {
         return items;
     }
 
+    /**
+     * get suitable items that fit into package optimal way
+     * @param caseInst case with maximal weight of package and items to pack
+     * @return comma separated packaged items' id. Or hyphen sign if no item fits
+     */
     private static String getSuitableItems(Case caseInst) {
         caseInst.getItems().removeIf(item -> item.getWeight() > caseInst.getWeightLimit());
 
