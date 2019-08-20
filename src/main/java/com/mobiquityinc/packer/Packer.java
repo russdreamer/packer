@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -83,15 +84,15 @@ public class Packer {
      * @return parsed case as object
      * @throws APIException if incorrect parameters are being passed
      */
-    private static Case parseCase(String line) throws APIException {
-        Pattern pattern = Pattern.compile("^\\d+\\s*:(\\s*\\([^()]*\\)\\s*)*$");
+    static Case parseCase(String line) throws APIException {
+        Pattern pattern = Pattern.compile("^\\d+\\s*:(\\s*(\\([^()]*\\))*\\s*)*$");
         if (!pattern.matcher(line).matches()) {
             throw new APIException("The file's line contains incorrect parameters");
         }
 
         String[] parts = line.split(":");
         int weightLimit = Integer.valueOf(parts[0].trim());
-        List<Item> items = parseItems(parts[1]);
+        List<Item> items = parts.length < 2 || parts[1].trim().isEmpty()? Collections.emptyList(): parseItems(parts[1]);
         return new Case(weightLimit, items);
     }
 
