@@ -29,3 +29,8 @@ I use ArrayList for items and LinkedList for everything else. Because I get acce
 To do it by O(1) I use ArrayList. I avoid to use poor array as I do reduce and iterate operation as well.
 All others list I use as LinkedList because I add to beginning and ending as a main operation.<br>
 I use stream API for small operations as this structure iterates quite slow.
+
+### Float or Integer
+As I mentioned we could use integer weights with dynamic algorithm, but it would increase iterations 100 times.
+Also we can multiply weight for brute force algorithm because it doesn't increase iteration for this algorithm. 
+If we would use float number for weight limit - it can produce mistakes as float/double isn't accurate with calculation and comparasion. However it's only integer weight limits in our cases and float number works well here.
