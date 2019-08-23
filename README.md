@@ -15,7 +15,7 @@ There are 2 general ways:<br>
 ### Why I've chosen brute force algorithm despite it seems so bad:
 Dynamic algorithm is suitable for integer weights because it build an array for every possible weight. 
 We can not build array with float indexes. What we can do is multiply float weights to make it integer.<br>
-Fisrt we had maximal 15 items and weight 100. That means our angorith do n * 100 iteration constantly. 1500 maximum.<br>
+Fisrt we had maximal 15 items and weight 100. That means our algorithm do n * 100 iteration constantly. 1500 maximum.<br>
 But if we want to multiply - it increase up to 150000 iteration. And it's only we're sure there are not more than 2 digits after a dot sign.<br>
 <br>
 Brute force algorithm provides 2^n iteration. Maximal 2^15 = ~32768 iteration. It's almost 5 times faster. And it doesn't depend if we use integer or float.
